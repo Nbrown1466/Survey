@@ -199,27 +199,40 @@
 </form>
 </div>
 
-<!-- JavaScript to handle form submission -->
-<script>
-document.getElementById('surveyForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the default form submission
-    let formData = new FormData(this); // Get form data
-    // Send form data to the PHP script using AJAX
-    fetch('submit_survey.php', {
-        method: 'POST',
-        body: formData // Set form data as body
-    })
-    .then(response => response.json()) // Parse response as JSON
-    .then(data => {
-        console.log(data); // Log response data (optional)
-        alert(data.message); // Show success message to the user (optional)
-        // You can redirect the user to another page or perform any other action here
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred. Please try again.'); // Show error message to the user (optional)
-    });
-});
-</script>
+<button type="submit">Submit</button>
+            </form>
+        </div>
+        <div id="thankYouMessageContainer" style="display: none;">
+            <p class="thankYouMessage">Thank you for completing the survey!</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('surveyForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Collect form data
+            var formData = new FormData(this);
+
+            // Send form data to email using Fetch API
+            fetch('submit_survey.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Hide survey form and show thank you message
+                    document.getElementById('surveyFormContainer').style.display = 'none';
+                    document.getElementById('thankYouMessageContainer').style.display = 'block';
+                } else {
+                    throw new Error('Failed to submit survey response.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to submit survey response.');
+            });
+        });
+    </script>
 </body>
 </html>
