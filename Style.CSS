@@ -1,0 +1,54 @@
+body {
+    font-family: 'Astoria Sans', sans-serif;
+    background-color: #efe9e2;
+    color: #887a7a;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1, h2 {
+    font-family: 'Aldus', serif;
+    color: #f36767;
+}
+
+.intro {
+    color: #c0b8b8;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #c0b8b8;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+select[multiple] {
+    height: auto;
+}
+
+button {
+    background-color: #ffafb8;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #f36767;
+}
