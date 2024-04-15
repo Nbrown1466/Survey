@@ -205,31 +205,31 @@
         </div>
     </div>
     <script>
-        document.getElementById('surveyForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Prevent form submission
+    document.getElementById('surveyForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
 
-            // Collect form data
-            var formData = new FormData(this);
+        // Collect form data
+        var formData = new FormData(this);
 
-            // Send form data to email using Fetch API
-            fetch('submit_survey.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (response.ok) {
-                    // Hide survey form and show thank you message
-                    document.getElementById('surveyFormContainer').style.display = 'none';
-                    document.getElementById('thankYouMessageContainer').style.display = 'block';
-                } else {
-                    throw new Error('Failed to submit survey response.');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Failed to submit survey response.');
-            });
+        // Send form data to email using Fetch API
+        fetch('submit_survey.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                // Hide survey form and show thank you message
+                document.getElementById('surveyForm').style.display = 'none';
+                document.getElementById('thankYouMessageContainer').style.display = 'block';
+            } else {
+                throw new Error('Failed to submit survey response.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to submit survey response.');
         });
-    </script>
+    });
+</script>
 </body>
 </html>
