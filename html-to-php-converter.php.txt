@@ -1,0 +1,28 @@
+<?php
+echo '<?php';
+echo 'if ($_SERVER["REQUEST_METHOD"] == "POST") {';
+echo '// Get form data';
+echo '$age = $_POST['age'];';
+echo '$gender = $_POST['gender'];';
+echo '// Add more fields as needed';
+echo '';
+echo '// Compose email message';
+echo '$to = "nbrown1466@gmail.com";';
+echo '$subject = "New Survey Response";';
+echo '$message = "Age: $age\n";';
+echo '$message .= "Gender: $gender\n";';
+echo '// Add more fields to the message as needed';
+echo '';
+echo '// Send email';
+echo '$headers = "From: nbrown10@berklee.edu\r\n";';
+echo '$headers .= "Reply-To: nbrown10@berklee.edu\r\n";';
+echo '$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";';
+echo '';
+echo 'if (mail($to, $subject, $message, $headers)) {';
+echo 'echo "Success"; // You can customize this response as needed';
+echo '} else {';
+echo 'echo "Failed"; // You can customize this response as needed';
+echo '}';
+echo '}';
+echo '?>';
+?>
