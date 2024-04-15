@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Results</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aldus&family=Astoria+Sans:wght@400;700&display=swap">
+    <style>
+        body {
+            font-family: 'Astoria Sans', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #efe9e2;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            font-family: 'Aldus', serif;
+            text-align: center;
+            color: #ffafb8;
+        }
+        #chartContainer {
+            margin-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Survey Results</h1>
+
+        <?php
+        // Read survey data from file
+        $file = 'survey_data.txt';
+        $surveyData = file_get_contents($file);
+        $surveyData = explode(PHP_EOL, $surveyData);
+        array_pop($surveyData); // Remove last empty element
+
+        // Convert data to associative array
+        $surveyResults = [];
+        foreach ($surveyData as $data) {
+            $surveyResults[] = json_decode($data, true);
+        }
+
+        // Calculate averages
+        $totalAge = 0;
+        $totalRating = 0;
+        $totalYears = 0;
+        $numParticipants = count($surveyResults);
+        foreach ($surveyResults as $result) {
+            $totalAge += intval($result['age']);
+            $totalRating += intval($result['rating']);
+            if (isset($result['years'])) {
+                $totalYears += intval($result['years']);
+            }
+        }
+        $averageAge = $numParticipants > 0 ? round($totalAge / $numParticipants) : 0;
+        $averageRating = $numParticipants > 0 ? round($totalRating / $numParticipants, 1) : 0;
+        $averageYears = $numParticipants > 0 ? round($totalYears / $numParticipants, 1) : 0;
+
+        // Output survey data
+        echo "<h2>Survey Participants: $numParticipants</h2>";
+        echo "<h2>Average Age: $averageAge</h2>";
+        echo "<h2>Average Success Rating: $averageRating</h2>";
+        echo "<h2>Average Years in Industry: $averageYears</h2>";
+
+        // Prepare data for chart
+        $genderCounts = ['Male' => 0, 'Female' => 0, 'Non-binary' => 0, 'Prefer not to say' => 0];
+        foreach ($surveyResults as $result) {
+            if (isset($result['gender'])) {
+                $genderCounts[$result['gender']]++;
+            }
+        }
+        $labels = [];
+        $data = [];
+        foreach ($genderCounts as $gender => $count) {
+            $labels[] = $gender;
+            $data[] = $count;
+        }
+        ?>
+
+        <!-- Display chart -->
+        <canvas id="genderChart" width="400" height="200"></canvas>
+        <script>
+            var ctx = document.getElementById('genderChart').getContext('2d');
+            var genderChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: <?php echo json_encode($labels); ?>,
+                    datasets: [{
+                        label: 'Gender Distribution',
+                        data: <?php echo json_encode($data); ?>,
+                        backgroundColor: [
+                            '#ffafb8',
+                            '#f36767',
+                            '#887a7a',
+                            '#c0b8b8'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>
