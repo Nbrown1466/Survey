@@ -1,234 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Industry Survey</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aldus&family=Astoria+Sans:wght@400;700&display=swap">
-    <style>
-        body {
-            font-family: 'Astoria Sans', sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #efe9e2;
-        }
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2 {
-            font-family: 'Aldus', serif;
-            text-align: center;
-            color: #ffafb8;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-            color: #887a7a;
-        }
-        input[type="text"], select, textarea {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 2px solid #c0b8b8;
-            border-radius: 5px;
-            box-sizing: border-box;
-            font-family: 'Astoria Sans', sans-serif;
-        }
-        input[type="submit"] {
-            width: 100%;
-            padding: 12px;
-            background-color: #f36767;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        input[type="submit"]:hover {
-            background-color: #ffafb8;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Survey on Age and Success in the Music Industry: Cross-Genre Perspectives</h1>
-        <form id="surveyForm" action="submit_survey.php" method="post">
-            <h2>1. Demographic Information:</h2>
-            <label for="age">a. Age:</label>
-            <input type="text" id="age" name="age" required>
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get form data
+    $age = $_POST['age'];
+    $gender = $_POST['gender'];
+    // Add more fields as needed
 
-            <label for="gender">b. Gender:</label>
-            <select id="gender" name="gender" required>
-                <option value="">Select</option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <option value="Non-binary">Non-binary</option>
-                <option value="Prefer not to say">Prefer not to say</option>
-            </select>
+    // Compose email message
+    $to = "nbrown1466@gmail.com";
+    $subject = "New Survey Response";
+    $message = "Age: $age\n";
+    $message .= "Gender: $gender\n";
+    // Add more fields to the message as needed
 
-            <label for="location">c. Location:</label>
-            <input type="text" id="location" name="location" required>
+    // Send email
+    $headers = "From: nbrown10@berklee.edu\r\n";
+    $headers .= "Reply-To: nbrown10@berklee.edu\r\n";
+    $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
-            <label for="genre">d. Musical Genre:</label>
-            <input type="text" id="genre" name="genre" required>
-
-            <h2>2. Musical Background:</h2>
-            <label for="involved">a. Are you currently involved in the music industry?</label>
-            <select id="involved" name="involved" required>
-                <option value="">Select</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-
-            <label for="role">b. If yes, please specify your role:</label>
-            <input type="text" id="role" name="role">
-
-            <label for="years">c. How many years have you been involved in the music industry?</label>
-            <input type="text" id="years" name="years">
-
-            <h2>3. Perception of Success:</h2>
-            <label for="definition">a. How do you define success in the music industry?</label>
-            <textarea id="definition" name="definition" rows="4" cols="50" required></textarea>
-
-            <label for="rating">b. On a scale of 1 to 10, how successful do you consider yourself to be in your career?</label>
-            <input type="number" id="rating" name="rating" min="1" max="10" required>
-
-            <label for="factors">c. What factors do you believe contribute most to success in the music industry? (Check all that apply)</label>
-            <input type="checkbox" id="talent" name="factors[]" value="Talent">
-            <label for="talent">Talent</label><br>
-            <input type="checkbox" id="hardwork" name="factors[]" value="Hard work">
-            <label for="hardwork">Hard work</label><br>
-            <input type="checkbox" id="networking" name="factors[]" value="Networking">
-            <label for="networking">Networking</label><br>
-            <input type="checkbox" id="marketing" name="factors[]" value="Marketing">
-            <label for="marketing">Marketing</label><br>
-            <input type="checkbox" id="luck" name="factors[]" value="Luck">
-            <label for="luck">Luck</label><br>
-            <label for="other">Other:</label>
-            <input type="text" id="other" name="factors_other">
-
-            <h2>4. Career Milestones and Age:</h2>
-            <label for="milestone_age">a. At what age did you achieve your first significant milestone in your music career?</label>
-            <input type="text" id="milestone_age" name="milestone_age" required>
-
-            <label for="age_influence">b. Do you believe that age has influenced your career trajectory in the music industry?</label>
-            <select id="age_influence" name="age_influence" required>
-                <option value="">Select</option>
-                <option value="Yes">Yes</option>
-                <option value="No">No</option>
-            </select>
-
-            <label for="age_influence_ways">c. If yes, in what ways has age influenced your career trajectory? (Check all that apply)</label>
-            <input type="checkbox" id="opportunities" name="age_influence_ways[]" value="Opportunities available">
-            <label for="opportunities">Opportunities available</label><br>
-            <input type="checkbox" id="perceptions" name="age_influence_ways[]" value="Industry perceptions">
-            <label for="perceptions">Industry perceptions</label><br>
-            <input type="checkbox" id="personal" name="age_influence_ways[]" value="Personal growth and development">
-            <label for="personal">Personal growth and development</label><br>
-            <label for="age_influence_other">Other:</label>
-            <input type="text" id="age_influence_other" name="age_influence_ways_other">
-
-            <input type="checkbox" id="age_influence" name="age_influence_ways[]" value="Other">
-<label for="age_influence_other">Other:</label>
-<input type="text" id="age_influence_other" name="age_influence_other">
-
-<h2>5. Genre-Specific Perspectives:</h2>
-<label for="genre_success">a. How do you perceive success differently within your primary musical genre compared to other genres?</label>
-<textarea id="genre_success" name="genre_success" rows="4" cols="50" required></textarea>
-
-<label for="age_biases">b. Do you believe that certain genres have age-related biases or stereotypes?</label>
-<select id="age_biases" name="age_biases" required>
-    <option value="">Select</option>
-    <option value="Yes">Yes</option>
-    <option value="No">No</option>
-</select>
-
-<label for="genres_biases">c. If yes, please specify the genres and the associated biases:</label>
-<textarea id="genres_biases" name="genres_biases" rows="4" cols="50"></textarea>
-
-<label for="age_influence_genres">d. In your opinion, how does age influence success metrics (e.g., chart performance, album sales) within different musical genres?</label>
-<textarea id="age_influence_genres" name="age_influence_genres" rows="4" cols="50" required></textarea>
-
-<label for="career_trajectories">e. Have you observed differences in the career trajectories of artists based on their age within specific genres? If yes, please provide examples.</label>
-<textarea id="career_trajectories" name="career_trajectories" rows="4" cols="50"></textarea>
-
-<h2>6. Industry Perceptions:</h2>
-<label for="bias_against_older">a. Do you believe there is a bias against older artists in the music industry?</label>
-<select id="bias_against_older" name="bias_against_older" required>
-    <option value="">Select</option>
-    <option value="Yes">Yes</option>
-    <option value="No">No</option>
-</select>
-
-<label for="forms_of_bias">b. If yes, what forms of bias have you observed or experienced?</label><br>
-<input type="checkbox" id="limited_opportunities" name="forms_of_bias[]" value="Limited opportunities">
-<label for="limited_opportunities">Limited opportunities</label><br>
-<input type="checkbox" id="ageist_stereotypes" name="forms_of_bias[]" value="Ageist stereotypes">
-<label for="ageist_stereotypes">Ageist stereotypes</label><br>
-<input type="checkbox" id="preference_younger" name="forms_of_bias[]" value="Preference for younger artists">
-<label for="preference_younger">Preference for younger artists</label><br>
-<label for="other_bias">Other:</label>
-<input type="text" id="other_bias" name="forms_of_bias_other">
-
-<h2>7. Reflections on Success and Age:</h2>
-<label for="optimal_age">a. In your opinion, is there an optimal age for achieving success in the music industry?</label>
-<select id="optimal_age" name="optimal_age" required>
-    <option value="">Select</option>
-    <option value="Yes">Yes</option>
-    <option value="No">No</option>
-    <option value="Not sure">Not sure</option>
-</select>
-
-<label for="age_range">b. If yes, what age range do you believe is optimal for achieving success within different genres?</label>
-<textarea id="age_range" name="age_range" rows="4" cols="50"></textarea>
-
-<label for="advice">c. What advice would you give to aspiring musicians regarding age and success in the music industry, considering cross-genre dynamics?</label>
-<textarea id="advice" name="advice" rows="4" cols="50" required></textarea>
-
-<h2>8. Additional Comments:</h2>
-<label for="additional_comments">Please feel free to share any additional thoughts, experiences, or insights you have regarding age and success in the music industry, particularly in relation to cross-genre perspectives.</label>
-<textarea id="additional_comments" name="additional_comments" rows="4" cols="50"></textarea>
-
-<input type="submit" value="Submit">
-</form>
-</div>
-            </form>
-        </div>
-        <div id="thankYouMessageContainer" style="display: none;">
-            <p class="thankYouMessage">Thank you for completing the survey!</p>
-        </div>
-    </div>
-    <script>
-    document.getElementById('surveyForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent form submission
-
-        // Collect form data
-        var formData = new FormData(this);
-
-        // Send form data to email using Fetch API
-        fetch('submit_survey.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (response.ok) {
-                // Hide survey form and show thank you message
-                document.getElementById('surveyForm').style.display = 'none';
-                document.getElementById('thankYouMessageContainer').style.display = 'block';
-            } else {
-                throw new Error('Failed to submit survey response.');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Failed to submit survey response.');
-        });
-    });
-</script>
-</body>
-</html>
+    if (mail($to, $subject, $message, $headers)) {
+        echo "Success"; // You can customize this response as needed
+    } else {
+        echo "Failed"; // You can customize this response as needed
+    }
+}
+?>
