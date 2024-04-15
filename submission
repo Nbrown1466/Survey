@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Submission</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Survey Submission</h1>
+        <p>Thank you for submitting the survey!</p>
+        
+        <h2>Submitted Data:</h2>
+        <div id="submittedData">
+            <!-- Data will be displayed here -->
+        </div>
+        
+        <p><a href="survey.html">Back to Survey</a></p>
+    </div>
+
+    <script>
+        // Retrieve submitted data from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const formData = {};
+
+        // Loop through URL parameters and populate formData object
+        for (const [key, value] of urlParams) {
+            formData[key] = value;
+        }
+
+        // Display submitted data
+        const submittedDataElement = document.getElementById('submittedData');
+        for (const key in formData) {
+            if (formData.hasOwnProperty(key)) {
+                submittedDataElement.innerHTML += `<p><strong>${key}:</strong> ${formData[key]}</p>`;
+            }
+        }
+    </script>
+</body>
+
+</html>
